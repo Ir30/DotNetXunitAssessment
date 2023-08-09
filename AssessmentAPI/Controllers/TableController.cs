@@ -23,11 +23,12 @@ namespace AssessmentAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddTable([FromBody] Aotable table)
         {
+            Console.WriteLine("Entered");
             try
             {
                 if (table != null)
                 {
-                    var newTable = tableInterface.AddTable(table);
+                    var newTable = await tableInterface.AddTable(table);
                     if (newTable != null)
                     {
                         return Ok(newTable);
@@ -58,7 +59,8 @@ namespace AssessmentAPI.Controllers
             {
                 if (table != null)
                 {
-                    var Newtable = tableInterface.UpdateTable(id, table);
+                    table.Id = id;
+                    var Newtable = await tableInterface.UpdateTable(id, table);
                     if (Newtable != null)
                     {
                         return Ok(Newtable);

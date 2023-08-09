@@ -25,7 +25,7 @@ namespace AssessmentAPI.Controllers
             {
                 if (column != null) 
                 {
-                    var result = ColumnInterface.AddColumn(column);
+                    var result =await ColumnInterface.AddColumn(column);
                     if (result != null)
                     {
                         return Ok(result);
@@ -54,7 +54,7 @@ namespace AssessmentAPI.Controllers
             {
                 if (column != null)
                 {
-                    var Column = ColumnInterface.EditColumn(id, column);
+                    var Column = await ColumnInterface.EditColumn(id, column);
                     if (Column != null)
                     {
 

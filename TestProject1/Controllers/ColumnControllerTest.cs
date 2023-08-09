@@ -2,8 +2,10 @@ using AssessmentAPI.Controllers;
 using AssessmentAPI.Models;
 using AssessmentAPI.Service.Interface;
 using AutoFixture;
+using AutoFixture.Kernel;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Moq;
 
 namespace TestProject1.Controllers
@@ -12,11 +14,13 @@ namespace TestProject1.Controllers
     {
 
         private readonly IFixture fixture;
+        private readonly IFixture _fixture;
         private ColumnController columnController;
         private Mock<IColumnInterface> columnInterface;
         public ColumnControllerTest()
         {
             fixture = new Fixture();
+
             columnInterface = fixture.Freeze<Mock<IColumnInterface>>();
             columnController = new ColumnController(columnInterface.Object);
         }
@@ -25,6 +29,7 @@ namespace TestProject1.Controllers
         public void AddColumn_ShouldRetuenOk_WhenSuccess()
         {
             //Arrange
+            fixture.Customize<BindingInfo>(c => c.OmitAutoProperties());
             var column = fixture.Create<Aocolumn>();
             var returnData = fixture.Create<Aocolumn>();
             columnInterface.Setup(c => c.AddColumn(column)).ReturnsAsync(returnData);
@@ -113,7 +118,7 @@ namespace TestProject1.Controllers
             var result = columnController.DeleteColumn(id);
             //Assert
             result.Should().NotBeNull();
-            result.Should().BeAssignableTo<Task<ActionResult>>();
+            result.Should().BeAssignableTo<ActionResult>();
             result.Should().BeAssignableTo<OkObjectResult>();
             columnInterface.Verify(t => t.DeleteColumn(id), Times.Once());
         }
