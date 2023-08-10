@@ -25,13 +25,13 @@ namespace AssessmentAPI.Service
                 return column;
         }
 
-        public Aocolumn DeleteColumn(Guid id)
+        public async Task<Aocolumn> DeleteColumn(Guid id)
         {
-            var column =  dbContext.Aocolumns.Find(id);
+            var column =await dbContext.Aocolumns.FindAsync(id);
             if (column != null)
             {
                 dbContext.Aocolumns.Remove(column);
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
                 return column;
             }
             return null;
@@ -59,11 +59,11 @@ namespace AssessmentAPI.Service
             else { return null; }
         }
 
-        public IEnumerable<Aocolumn> GetColumnBytype()
+        public async Task<IEnumerable<Aocolumn>> GetColumnBytype()
         {
-            var Records = dbContext.Aocolumns
+            var Records =await dbContext.Aocolumns
                .Where(r => r.DataType == "decimal" || r.DataType == "datetime")
-               .ToList();
+               .ToListAsync();
             if(Records.Count > 0)
             {
                 return Records;
@@ -74,9 +74,9 @@ namespace AssessmentAPI.Service
             }
         }
 
-        public IEnumerable<Aotable> GetTableDataByname(string name)
+        public async Task<IEnumerable<Aotable>> GetTableDataByname(string name)
         {
-            var tableInfo = dbContext.Aotables.Include(t => t.Aocolumns).Where(t => t.Name == name).ToList();
+            var tableInfo =await dbContext.Aotables.Include(t => t.Aocolumns).Where(t => t.Name == name).ToListAsync();
             return tableInfo != null ? tableInfo : Enumerable.Empty<Aotable>();
         }
     }

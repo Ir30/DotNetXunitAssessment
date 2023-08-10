@@ -25,6 +25,7 @@ namespace AssessmentAPI.Controllers
             {
                 if (column != null) 
                 {
+                    column.Id = Guid.NewGuid();
                     var result =await ColumnInterface.AddColumn(column);
                     if (result != null)
                     {
@@ -75,11 +76,11 @@ namespace AssessmentAPI.Controllers
 
         //Delete a record
         [HttpDelete("{id}")]
-        public ActionResult DeleteColumn(Guid id)
+        public async Task<ActionResult> DeleteColumn(Guid id)
         {
             try
             {
-                var column = ColumnInterface.DeleteColumn(id);
+                var column =await ColumnInterface.DeleteColumn(id);
                 if (column != null)
                 {   
                     return Ok("success");
@@ -94,11 +95,11 @@ namespace AssessmentAPI.Controllers
 
         //Get all records with DataType "decimal" and "datetime"
         [HttpGet("decimalOrdatetime")]
-        public IActionResult GetColumnBytype()
+        public async Task<IActionResult> GetColumnBytype()
         {
             try
             {
-                var Records = ColumnInterface.GetColumnBytype();
+                var Records =await ColumnInterface.GetColumnBytype();
                 if (Records != null)
                 {
                     return Ok(Records);
@@ -116,7 +117,7 @@ namespace AssessmentAPI.Controllers
 
         //Get all records from AOColumn based on Table Name
         [HttpGet("{tableName}")]
-        public IActionResult GetTableDataByname(string tableName)
+        public async Task<IActionResult> GetTableDataByname(string tableName)
         {
             try
             {
@@ -125,14 +126,17 @@ namespace AssessmentAPI.Controllers
                     return BadRequest("The table name cannot be empty.");
                 }
 
-                var tableInfo = ColumnInterface.GetTableDataByname(tableName);
+                var tableInfo =await ColumnInterface.GetTableDataByname(tableName);
 
                 if (tableInfo == null)
                 {
                     return NotFound($"The table '{tableName}' does not exist in AOTable.");
                 }
-
-                return Ok(tableInfo);
+                else
+                {
+                    return Ok(tableInfo);
+                }
+                
             }catch (Exception ex)
             {
                 return BadRequest(ex.Message);

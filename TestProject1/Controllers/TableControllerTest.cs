@@ -36,11 +36,10 @@ namespace TestProject1.Controllers
         }
 
         [Fact]
-        public void AddTable_ShouldReturnBadRequest_WhenAddFailed()
+        public void AddTable_ShouldReturnBadRequest_WhenTableObjectIsNull()
         {
             //Arrange
             Aotable table = null;
-            var returnData = fixture.Create<Aotable>();
             tableInterface.Setup(t => t.AddTable(table)).ReturnsAsync((Aotable)null);
             //Act
             var result = tableController.AddTable(table);
@@ -49,6 +48,35 @@ namespace TestProject1.Controllers
             result.Should().BeAssignableTo<Task<IActionResult>>();
             result.Result.Should().BeAssignableTo<BadRequestResult>();
             tableInterface.Verify(t => t.AddTable(table), Times.Never());
+        }
+
+        [Fact]
+        public void AddTable_ShouldReturnBadRequestObjectResult_WhenAddFailed()
+        {
+            //Arrange
+            var table = fixture.Create<Aotable>();
+            tableInterface.Setup(t => t.AddTable(table)).Returns(Task.FromResult<Aotable>(null));
+            //Act
+            var result = tableController.AddTable(table);
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeAssignableTo<Task<IActionResult>>();
+            result.Result.Should().BeAssignableTo<BadRequestObjectResult>();
+            tableInterface.Verify(t => t.AddTable(table), Times.Once());
+        }
+        [Fact]
+        public void AddTable_ShouldReturnBadRequestObjectResult_WhenAnExceptionOccurred()
+        {
+            //Arrange
+            var table = fixture.Create<Aotable>();
+            tableInterface.Setup(t => t.AddTable(table)).Throws(new Exception());
+            //Act
+            var result = tableController.AddTable(table);
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeAssignableTo<Task<IActionResult>>();
+            result.Result.Should().BeAssignableTo<BadRequestObjectResult>();
+            tableInterface.Verify(t => t.AddTable(table), Times.Once());
         }
 
 
@@ -88,7 +116,7 @@ namespace TestProject1.Controllers
         }
 
         [Fact]
-        public void EditTable_ShouldReturnNotFoundObjectResult_WhenNoDataFound()
+        public void EditTable_ShouldReturnNotFoundObjectResult_WhenDataNotFound()
         {
             //Arrange
             Guid id = fixture.Create<Guid>();
@@ -104,35 +132,63 @@ namespace TestProject1.Controllers
         }
 
         [Fact]
+        public void EditTable_ShouldReturnBadRequestObjectResult_WhenAnExceptionOccurred()
+        {
+            //Arrange
+            Guid id = fixture.Create<Guid>();
+            Aotable table = fixture.Create<Aotable>();
+            tableInterface.Setup(t => t.UpdateTable(id, table)).Throws(new Exception());
+            //Act
+            var result = tableController.EditTable(id, table);
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeAssignableTo<Task<IActionResult>>();
+            result.Result.Should().BeAssignableTo<BadRequestObjectResult>();
+            tableInterface.Verify(t => t.UpdateTable(id, table), Times.Once());
+        }
+
+        [Fact]
         public void GetAllTableByType_ShouldReturnOk_WhenDataFound()
         {
             //Arrange
             var tableMock = fixture.Create<IEnumerable<Aotable>>();
-            tableInterface.Setup(t => t.GetAllTableByType()).Returns(tableMock);
+            tableInterface.Setup(t => t.GetAllTableByType()).ReturnsAsync(tableMock);
             //Act
             var result = tableController.GetAllTableByType();
             //Assert
             result.Should().NotBeNull();
-            result.Should().BeAssignableTo<IActionResult>();
-            result.Should().BeAssignableTo<OkObjectResult>();
+            result.Should().BeAssignableTo<Task<IActionResult>>();
+            result.Result.Should().BeAssignableTo<OkObjectResult>();
             tableInterface.Verify(t =>t.GetAllTableByType(), Times.Once());    
         }
 
         [Fact]
-        public void GetAllTableByType_ShouldReturnOk_WhenDataNotFound()
+        public void GetAllTableByType_ShouldReturnNotFoundResult_WhenDataNotFound()
         {
             //Arrange
-             List<Aotable> tableMock = null;
-            tableInterface.Setup(t => t.GetAllTableByType()).Returns(tableMock);
+            tableInterface.Setup(t => t.GetAllTableByType()).Returns(Task.FromResult<IEnumerable<Aotable>>(null));
             //Act
             var result = tableController.GetAllTableByType();
             //Assert
             result.Should().NotBeNull();
-            result.Should().BeAssignableTo<IActionResult>();
-            result.Should().BeAssignableTo<NotFoundResult>();
+            result.Should().BeAssignableTo<Task<IActionResult>>();
+            result.Result.Should().BeAssignableTo<NotFoundResult>();
             tableInterface.Verify(t => t.GetAllTableByType(), Times.Once());
-
-
         }
+
+        [Fact]
+        public void GetAllTableByType_ShouldReturnBadRequestObjectResult_WhenAnExceptionOccurred()
+        {
+            //Arrange
+            tableInterface.Setup(t => t.GetAllTableByType()).Throws(new Exception());
+            //Act
+            var result = tableController.GetAllTableByType();
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeAssignableTo<Task<IActionResult>>();
+            result.Result.Should().BeAssignableTo<BadRequestObjectResult>();
+            tableInterface.Verify(t => t.GetAllTableByType(), Times.Once());
+        }
+
     }
 }

@@ -28,6 +28,7 @@ namespace AssessmentAPI.Controllers
             {
                 if (table != null)
                 {
+                    table.Id = Guid.NewGuid();
                     var newTable = await tableInterface.AddTable(table);
                     if (newTable != null)
                     {
@@ -83,10 +84,17 @@ namespace AssessmentAPI.Controllers
 
         //
         [HttpGet("policyOrschedule")]
-        public IActionResult GetAllTableByType()
+        public async Task<IActionResult> GetAllTableByType()
         {
-            var result = tableInterface.GetAllTableByType();
-            return result != null ? Ok(result):NotFound();
+            try
+            {
+                var result = await tableInterface.GetAllTableByType();
+                return result != null ? Ok(result) : NotFound();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

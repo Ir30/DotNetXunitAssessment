@@ -29,11 +29,11 @@ namespace AssessmentAPI.Service
                 
         }
 
-        public IEnumerable<Aotable> GetAllTableByType()
+        public async Task<IEnumerable<Aotable>> GetAllTableByType()
         {
-            var Records = dbContext.Aotables
+            var Records =await dbContext.Aotables
                .Where(r => r.Type == "schedule" || r.Type == "policy")
-               .ToList();
+               .ToListAsync();
             return Records!=null?Records: Enumerable.Empty<Aotable>();
         }
 
