@@ -18,17 +18,11 @@ namespace AssessmentAPI.Service
 
         public async Task<Aocolumn> AddColumn(Aocolumn column)
         {
-            if(column != null)
-            {
+            
                 await dbContext.Aocolumns.AddAsync(column);
 
                 await dbContext.SaveChangesAsync();
                 return column;
-            }
-            else
-            {
-                return null;
-            }
         }
 
         public Aocolumn DeleteColumn(Guid id)

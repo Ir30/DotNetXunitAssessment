@@ -324,3 +324,4 @@ D:\programming\dotNet\Backend\AssessmentAPI\TestProject1\obj\Debug\net6.0\TestPr
 D:\programming\dotNet\Backend\AssessmentAPI\TestProject1\obj\Debug\net6.0\TestProject1.genruntimeconfig.cache
 D:\programming\dotNet\Backend\AssessmentAPI\TestProject1\obj\Debug\net6.0\ref\TestProject1.dll
 D:\programming\dotNet\Backend\AssessmentAPI\TestProject1\bin\Debug\net6.0\CoverletSourceRootsMapping_TestProject1
+D:\programming\dotNet\Backend\AssessmentAPI\TestProject1\bin\Debug\net6.0\AutoMapper.dll

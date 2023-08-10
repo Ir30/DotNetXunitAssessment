@@ -259,3 +259,4 @@ D:\programming\dotNet\Backend\AssessmentAPI\AssessmentAPI\obj\Debug\net6.0\refin
 D:\programming\dotNet\Backend\AssessmentAPI\AssessmentAPI\obj\Debug\net6.0\AssessmentAPI.pdb
 D:\programming\dotNet\Backend\AssessmentAPI\AssessmentAPI\obj\Debug\net6.0\AssessmentAPI.genruntimeconfig.cache
 D:\programming\dotNet\Backend\AssessmentAPI\AssessmentAPI\obj\Debug\net6.0\ref\AssessmentAPI.dll
+D:\programming\dotNet\Backend\AssessmentAPI\AssessmentAPI\bin\Debug\net6.0\AutoMapper.dll

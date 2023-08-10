@@ -3,6 +3,7 @@ using AssessmentAPI.Models;
 using AssessmentAPI.Service.Interface;
 using AutoFixture;
 using AutoFixture.Kernel;
+using AutoMapper.Execution;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -26,10 +27,10 @@ namespace TestProject1.Controllers
         }
 
         [Fact]
-        public void AddColumn_ShouldRetuenOk_WhenSuccess()
+        public void AddColumn_ShouldReturnOk_WhenSuccess()
         {
             //Arrange
-            fixture.Customize<BindingInfo>(c => c.OmitAutoProperties());
+            //fixture.Customize<BindingInfo>(c => c.OmitAutoProperties());
             var column = fixture.Create<Aocolumn>();
             var returnData = fixture.Create<Aocolumn>();
             columnInterface.Setup(c => c.AddColumn(column)).ReturnsAsync(returnData);
@@ -42,12 +43,13 @@ namespace TestProject1.Controllers
             columnInterface.Verify(t => t.AddColumn(column), Times.Once());
         }
 
-        public void AddColumn_ShouldReturnBadRequest_WhenInvalidFreignKey()
+        [Fact]
+        public void AddColumn_ShouldReturnBadRequest_WhenForeignkeyIsInValid()
         {
             //Arrange
             var column = fixture.Create<Aocolumn>();
             column.TableId = null;
-            var expectedExceptionMessage = "Invalid Foreign Key";
+            var expectedExceptionMessage = "Please give a valid foreign key";
             var returnData = fixture.Create<Aocolumn>();
             columnInterface.Setup(c => c.AddColumn(column)).Throws(new Exception(expectedExceptionMessage));
             //Act
@@ -60,7 +62,7 @@ namespace TestProject1.Controllers
         }
 
         [Fact]
-        public void AddColumn_ShouldRetuenBadRequest_WhenFailed()
+        public void AddColumn_ShouldReturnBadRequest_WhenFailed()
         {
             //Arrange
             Aocolumn column = null;
@@ -71,11 +73,13 @@ namespace TestProject1.Controllers
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
             result.Result.Should().BeAssignableTo<BadRequestResult>();
+            columnInterface.Verify(t => t.AddColumn(column), Times.Never());
+
         }
 
 
         [Fact]
-        public void EditColumn_ShouldRetuenOk_WhenSuccess()
+        public void EditColumn_ShouldReturnOk_WhenSuccess()
         {
             //Arrange
             Guid id = fixture.Create<Guid>();
@@ -91,8 +95,9 @@ namespace TestProject1.Controllers
             columnInterface.Verify(t => t.EditColumn(id,column), Times.Once());
         }
 
+
         [Fact]
-        public void EditColumn_ShouldRetuenBadRequest_WhenFailed()
+        public void EditColumn_ShouldReturnBadRequest_WhenFailed()
         {
             //Arrange
             Guid id = fixture.Create<Guid>();
@@ -104,11 +109,30 @@ namespace TestProject1.Controllers
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
             result.Result.Should().BeAssignableTo<BadRequestResult>();
+            columnInterface.Verify(t => t.EditColumn(id,column), Times.Never());
+
+        }
+
+        [Fact]
+        public void EditColumn_ShouldReturnNotFoundObjectResult_WhenNoDataFound()
+        {
+            //Arrange
+            Guid id = fixture.Create<Guid>();
+            var column = fixture.Create<Aocolumn>();
+            //var returnData = fixture.Create<Aocolumn>();
+            columnInterface.Setup(c => c.EditColumn(id, column)).Returns(Task.FromResult<Aocolumn>(null));
+            //Act
+            var result = columnController.EditColumn(id, column);
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeAssignableTo<Task<IActionResult>>();
+            result.Result.Should().BeAssignableTo<NotFoundObjectResult>();
+            columnInterface.Verify(t => t.EditColumn(id, column), Times.Once());
         }
 
 
         [Fact]
-        public void DeleteColumn_ShouldRetuenOk_WhenSuccess()
+        public void DeleteColumn_ShouldReturnOk_WhenSuccess()
         {
             //Arrange
             Guid id = fixture.Create<Guid>();
@@ -124,7 +148,7 @@ namespace TestProject1.Controllers
         }
 
         [Fact]
-        public void DeleteColumn_ShouldNotfoundk_WhenFailed()
+        public void DeleteColumn_ShouldReturnNotfound_WhenFailed()
         {
             //Arrange
             Guid id = fixture.Create<Guid>();
@@ -156,7 +180,7 @@ namespace TestProject1.Controllers
         }
 
         [Fact]
-        public void GetColumnBytype_ShouldNotfoundk_WhenFailed()
+        public void GetColumnBytype_ShouldReturnNotfoundk_WhenFailed()
         {
             //Arrange
             IEnumerable<Aocolumn> returnData = null;
@@ -188,7 +212,7 @@ namespace TestProject1.Controllers
 
 
         [Fact]
-        public void GetTableDataByname_ShouldRetrnBad_WhenNameEmpty()
+        public void GetTableDataByname_ShouldRetrnBadRequest_WhenNameIsEmpty()
         {
             //Arrange
             string name = null;
@@ -200,6 +224,7 @@ namespace TestProject1.Controllers
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<ActionResult>();
             result.Should().BeAssignableTo<BadRequestObjectResult>();
+            columnInterface.Verify(t => t.GetTableDataByname(name), Times.Once());
         }
 
         [Fact]

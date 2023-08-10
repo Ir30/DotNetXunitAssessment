@@ -59,7 +59,6 @@ namespace AssessmentAPI.Controllers
             {
                 if (table != null)
                 {
-                    table.Id = id;
                     var Newtable = await tableInterface.UpdateTable(id, table);
                     if (Newtable != null)
                     {

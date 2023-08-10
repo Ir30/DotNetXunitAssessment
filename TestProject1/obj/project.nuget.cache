@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "WRTR7J/qTdUsIgLND6HlZ+GIQbT02SzkDQJMxeBmWIR64CFMBj0L4KZkx151HCUQ4Rd9mAZ1cYJIKnCfTbLpAQ==",
+  "dgSpecHash": "vH7zQgX52/VL3qDwYvJb4djcYcNYikmoz58CqhlRjdEsemKiFMZdWryk46VlKjhYaOcCQWWNqmmMuTP3UGMUlg==",
   "success": true,
   "projectFilePath": "D:\\programming\\dotNet\\Backend\\AssessmentAPI\\TestProject1\\TestProject1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\muhammed.c\\.nuget\\packages\\autofixture\\4.18.0\\autofixture.4.18.0.nupkg.sha512",
+    "C:\\Users\\muhammed.c\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\muhammed.c\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\muhammed.c\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\muhammed.c\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
@@ -13,7 +14,7 @@
     "C:\\Users\\muhammed.c\\.nuget\\packages\\fluentassertions\\6.11.0\\fluentassertions.6.11.0.nupkg.sha512",
     "C:\\Users\\muhammed.c\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\muhammed.c\\.nuget\\packages\\microsoft.codecoverage\\17.7.0\\microsoft.codecoverage.17.7.0.nupkg.sha512",
-    "C:\\Users\\muhammed.c\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\muhammed.c\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\muhammed.c\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.2\\microsoft.data.sqlclient.5.0.2.nupkg.sha512",
     "C:\\Users\\muhammed.c\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\5.0.1\\microsoft.data.sqlclient.sni.runtime.5.0.1.nupkg.sha512",
     "C:\\Users\\muhammed.c\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.9\\microsoft.entityframeworkcore.7.0.9.nupkg.sha512",

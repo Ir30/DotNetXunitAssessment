@@ -32,7 +32,7 @@ namespace AssessmentAPI.Controllers
                     }
                     else
                     {
-                        return BadRequest();
+                        return NotFound();
                     }
 
                 }else { return BadRequest(); }

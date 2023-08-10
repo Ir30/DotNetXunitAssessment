@@ -39,8 +39,7 @@ namespace AssessmentAPI.Service
 
         public async Task<Aotable> UpdateTable(Guid id, Aotable table)
         {
-            if (table != null)
-            {
+           
                 var ExistingTable = await dbContext.Aotables.SingleOrDefaultAsync(option => option.Id == id);
                 if (ExistingTable != null)
                 {
@@ -59,11 +58,6 @@ namespace AssessmentAPI.Service
                     return table;
                 }
                 else { return null; }
-            }
-            else
-            {
-                return null;
-            }
             
         }
     }

@@ -1,14 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "mzdYjREbbWs7VPBEaDnvX7u15UMqTW1LtPB84Pen0EJeOaKndi5cqZQGNG60lGIGU6fVdnH63F/N3np5sJ8Vwg==",
+  "dgSpecHash": "lk7JNnNCqtpxZ3UlL2rLOBG6CcteeqjL+SaF4V6a+LikU4h7WkH7GSJQvuM3ChMlUWTXIgP3M/MZxhQnnDSl9g==",
   "success": true,
   "projectFilePath": "D:\\programming\\dotNet\\Backend\\AssessmentAPI\\AssessmentAPI\\AssessmentAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\muhammed.c\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\muhammed.c\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\muhammed.c\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\muhammed.c\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\muhammed.c\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
-    "C:\\Users\\muhammed.c\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\muhammed.c\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\muhammed.c\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.2\\microsoft.data.sqlclient.5.0.2.nupkg.sha512",
     "C:\\Users\\muhammed.c\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\5.0.1\\microsoft.data.sqlclient.sni.runtime.5.0.1.nupkg.sha512",
     "C:\\Users\\muhammed.c\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.9\\microsoft.entityframeworkcore.7.0.9.nupkg.sha512",
