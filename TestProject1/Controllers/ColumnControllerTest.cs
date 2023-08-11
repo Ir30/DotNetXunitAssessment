@@ -25,7 +25,7 @@ namespace TestProject1.Controllers
             columnInterface = fixture.Freeze<Mock<IColumnInterface>>();
             columnController = new ColumnController(columnInterface.Object);
         }
-
+        //Test cases AddColumn()
         [Fact]
         public void AddColumn_ShouldReturnOk_WhenSuccess()
         {
@@ -33,8 +33,10 @@ namespace TestProject1.Controllers
             var column = fixture.Create<Aocolumn>();
             var returnData = fixture.Create<Aocolumn>();
             columnInterface.Setup(c => c.AddColumn(column)).ReturnsAsync(returnData);
+
             //Act
             var result = columnController.AddColumn(column);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -50,8 +52,10 @@ namespace TestProject1.Controllers
             column.TableId = null;
             var expectedExceptionMessage = "Please give a valid foreign key";
             columnInterface.Setup(c => c.AddColumn(column)).Throws(new Exception(expectedExceptionMessage));
+
             //Act
             var result = columnController.AddColumn(column);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -65,8 +69,10 @@ namespace TestProject1.Controllers
             //Arrange
             Aocolumn column = null;
             columnInterface.Setup(c => c.AddColumn(column)).ReturnsAsync((Aocolumn)null);
+
             //Act
             var result = columnController.AddColumn(column);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -81,8 +87,10 @@ namespace TestProject1.Controllers
             //Arrange
             var column = fixture.Create<Aocolumn>();
             columnInterface.Setup(c => c.AddColumn(column)).Returns(Task.FromResult<Aocolumn>(null));
+
             //Act
             var result = columnController.AddColumn(column);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -90,16 +98,19 @@ namespace TestProject1.Controllers
             columnInterface.Verify(t => t.AddColumn(column), Times.Once());
         }
 
+        //Test cases EditColumn()
         [Fact]
-        public void EditColumn_ShouldReturnNotFoundResult_WhenEditSuccess()
+        public void EditColumn_ShouldReturnOkObjectResult_WhenEditSuccess()
         {
             //Arrange
             Guid id = fixture.Create<Guid>();
             var column = fixture.Create<Aocolumn>();
             var returnData = fixture.Create<Aocolumn>();
             columnInterface.Setup(c => c.EditColumn(id,column)).ReturnsAsync(returnData);
+
             //Act
             var result = columnController.EditColumn(id,column);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -115,8 +126,10 @@ namespace TestProject1.Controllers
             Guid id = fixture.Create<Guid>();
             Aocolumn column = null;
             columnInterface.Setup(c => c.EditColumn(id, column)).ReturnsAsync((Aocolumn)null);
+
             //Act
             var result = columnController.EditColumn(id, column);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -131,10 +144,11 @@ namespace TestProject1.Controllers
             //Arrange
             Guid id = fixture.Create<Guid>();
             var column = fixture.Create<Aocolumn>();
-            //var returnData = fixture.Create<Aocolumn>();
             columnInterface.Setup(c => c.EditColumn(id, column)).Returns(Task.FromResult<Aocolumn>(null));
+
             //Act
             var result = columnController.EditColumn(id, column);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -149,8 +163,10 @@ namespace TestProject1.Controllers
             Guid id = fixture.Create<Guid>();
             var column = fixture.Create<Aocolumn>();
             columnInterface.Setup(c => c.EditColumn(id, column)).Throws(new Exception());
+
             //Act
             var result = columnController.EditColumn(id, column);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -158,7 +174,7 @@ namespace TestProject1.Controllers
             columnInterface.Verify(t => t.EditColumn(id, column), Times.Once());
         }
 
-
+        //Test cases DeleteColumn()
         [Fact]
         public void DeleteColumn_ShouldReturnOk_WhenSuccess()
         {
@@ -166,8 +182,10 @@ namespace TestProject1.Controllers
             Guid id = fixture.Create<Guid>();
             var returnData = fixture.Create<Aocolumn>();
             columnInterface.Setup(c => c.DeleteColumn(id)).ReturnsAsync(returnData);
+
             //Act
             var result = columnController.DeleteColumn(id);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<ActionResult>>();
@@ -181,8 +199,10 @@ namespace TestProject1.Controllers
             //Arrange
             Guid id = fixture.Create<Guid>();
             columnInterface.Setup(c => c.DeleteColumn(id)).Returns(Task.FromResult<Aocolumn>(null));
+
             //Act
             var result = columnController.DeleteColumn(id);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<ActionResult>>();
@@ -196,22 +216,27 @@ namespace TestProject1.Controllers
             //Arrange
             Guid id = fixture.Create<Guid>();
             columnInterface.Setup(c => c.DeleteColumn(id)).Throws(new Exception());
+
+            //Act
             var result = columnController.DeleteColumn(id);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<ActionResult>>();
             result.Result.Should().BeAssignableTo<BadRequestObjectResult>();
             columnInterface.Verify(t => t.DeleteColumn(id), Times.Once());
         }
-
+        //Test cases GetColumnBytype()
         [Fact]
         public void GetColumnBytype_ShouldReturnOk_WhenSuccess()
         {
             //Arrange
             var column = fixture.Create<IEnumerable<Aocolumn>>();
             columnInterface.Setup(c => c.GetColumnBytype()).ReturnsAsync(column);
+
             //Act
             var result = columnController.GetColumnBytype();
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -224,8 +249,10 @@ namespace TestProject1.Controllers
         {
             //Arrange
             columnInterface.Setup(c => c.GetColumnBytype()).Returns(Task.FromResult<IEnumerable<Aocolumn>>(null));
+
             //Act
             var result = columnController.GetColumnBytype();
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -238,8 +265,10 @@ namespace TestProject1.Controllers
         {
             //Arrange
             columnInterface.Setup(c => c.GetColumnBytype()).Throws(new Exception());
+
             //Act
             var result = columnController.GetColumnBytype();
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -247,6 +276,7 @@ namespace TestProject1.Controllers
             columnInterface.Verify(t => t.GetColumnBytype(), Times.Once());
         }
 
+        //Test cases GetTableDataByName()
         [Fact]
         public void GetTableDataByName_ShouldReturnOk_WhenSuccess()
         {
@@ -254,8 +284,10 @@ namespace TestProject1.Controllers
             var name = fixture.Create<string>();
             var table = fixture.Create<IEnumerable<Aotable>>();
             columnInterface.Setup(c => c.GetTableDataByname(name)).ReturnsAsync(table);
+
             //Act
             var result = columnController.GetTableDataByname(name);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -270,8 +302,10 @@ namespace TestProject1.Controllers
             string name = null;
             var table = fixture.Create<IEnumerable<Aotable>>();
             columnInterface.Setup(c => c.GetTableDataByname(name)).ReturnsAsync(table);
+
             //Act
             var result = columnController.GetTableDataByname(name);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -284,8 +318,10 @@ namespace TestProject1.Controllers
             //Arrange
             string name = "";
             columnInterface.Setup(c => c.GetTableDataByname(name));
+
             //Act
             var result = columnController.GetTableDataByname(name);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -294,13 +330,15 @@ namespace TestProject1.Controllers
         }
 
         [Fact]
-        public void GetTableDataByName_ShouldReturnNotFound_WhenNodataFound()
+        public void GetTableDataByName_ShouldReturnNotFound_WhenDataNotFound()
         {
             //Arrange
             var name = fixture.Create<string>();
             columnInterface.Setup(c => c.GetTableDataByname(name)).Returns(Task.FromResult<IEnumerable<Aotable>>(null));
+
             //Act
             var result = columnController.GetTableDataByname(name);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -309,13 +347,15 @@ namespace TestProject1.Controllers
         }
 
         [Fact]
-        public void GetTableDataByName_ShouldReturnBadRequestObjectResult_WhenAnExceptionOccurreds()
+        public void GetTableDataByName_ShouldReturnBadRequestObjectResult_WhenAnExceptionOccurred()
         {
             //Arrange
             var name = fixture.Create<string>();
             columnInterface.Setup(c => c.GetTableDataByname(name)).Throws(new Exception());
+
             //Act
             var result = columnController.GetTableDataByname(name);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();

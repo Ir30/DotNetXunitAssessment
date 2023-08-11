@@ -19,6 +19,7 @@ namespace TestProject1.Controllers
             tableController = new TableController(tableInterface.Object);
         }
 
+        //Test cases for AddTable()
         [Fact]
         public void AddTable_ShouldReturnOk_WhenAddSuccess()
         {
@@ -26,8 +27,10 @@ namespace TestProject1.Controllers
             var table = fixture.Create<Aotable>();
             var returnData = fixture.Create<Aotable>();
             tableInterface.Setup(t => t.AddTable(table)).ReturnsAsync(returnData);
+
             //Act
             var result = tableController.AddTable(table);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -41,8 +44,10 @@ namespace TestProject1.Controllers
             //Arrange
             Aotable table = null;
             tableInterface.Setup(t => t.AddTable(table)).ReturnsAsync((Aotable)null);
+
             //Act
             var result = tableController.AddTable(table);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -56,8 +61,10 @@ namespace TestProject1.Controllers
             //Arrange
             var table = fixture.Create<Aotable>();
             tableInterface.Setup(t => t.AddTable(table)).Returns(Task.FromResult<Aotable>(null));
+
             //Act
             var result = tableController.AddTable(table);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -70,8 +77,10 @@ namespace TestProject1.Controllers
             //Arrange
             var table = fixture.Create<Aotable>();
             tableInterface.Setup(t => t.AddTable(table)).Throws(new Exception());
+
             //Act
             var result = tableController.AddTable(table);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -79,6 +88,7 @@ namespace TestProject1.Controllers
             tableInterface.Verify(t => t.AddTable(table), Times.Once());
         }
 
+        //Test cases EditTable()
 
         [Fact]
         public void EditTable_ShouldReturnOk_WhenEditSuccess()
@@ -106,8 +116,10 @@ namespace TestProject1.Controllers
             Guid id = fixture.Create<Guid>();
             Aotable table = null;
             tableInterface.Setup(t => t.UpdateTable(id, table)).ReturnsAsync((Aotable)null);
+
             //Act
             var result = tableController.EditTable(id, table);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -122,8 +134,10 @@ namespace TestProject1.Controllers
             Guid id = fixture.Create<Guid>();
             Aotable table = fixture.Create<Aotable>();
             tableInterface.Setup(t => t.UpdateTable(id, table)).Returns(Task.FromResult<Aotable>(null));
+
             //Act
             var result = tableController.EditTable(id, table);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -138,8 +152,10 @@ namespace TestProject1.Controllers
             Guid id = fixture.Create<Guid>();
             Aotable table = fixture.Create<Aotable>();
             tableInterface.Setup(t => t.UpdateTable(id, table)).Throws(new Exception());
+
             //Act
             var result = tableController.EditTable(id, table);
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -147,14 +163,18 @@ namespace TestProject1.Controllers
             tableInterface.Verify(t => t.UpdateTable(id, table), Times.Once());
         }
 
+
+        //Test cases GetAllTableByType()
         [Fact]
         public void GetAllTableByType_ShouldReturnOk_WhenDataFound()
         {
             //Arrange
             var tableMock = fixture.Create<IEnumerable<Aotable>>();
             tableInterface.Setup(t => t.GetAllTableByType()).ReturnsAsync(tableMock);
+
             //Act
             var result = tableController.GetAllTableByType();
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -167,8 +187,10 @@ namespace TestProject1.Controllers
         {
             //Arrange
             tableInterface.Setup(t => t.GetAllTableByType()).Returns(Task.FromResult<IEnumerable<Aotable>>(null));
+
             //Act
             var result = tableController.GetAllTableByType();
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
@@ -181,8 +203,10 @@ namespace TestProject1.Controllers
         {
             //Arrange
             tableInterface.Setup(t => t.GetAllTableByType()).Throws(new Exception());
+
             //Act
             var result = tableController.GetAllTableByType();
+
             //Assert
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<Task<IActionResult>>();
